@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>マイキャラルーム ログインスクリプト作成</title>
+</head>
+<body>
+    <ol>
+        <li>まずは普通にマイキャラルームに登録しておく</li>
+        <li>
+            ログイン用のスクリプトを作成する。
+            <form>
+                <dl>
+                    <dt><label for="cardId">カードID</label></dt>
+                    <dd><input id="cardId" placeholder="*******-*******" /></dd>
+                    <dt><label for="playerName">ニックネーム</label></dt>
+                    <dd><input id="playerName" placeholder="ニックネーム" /></dd>
+                    <dt><label for="birthday">誕生日</label></dt>
+                    <dd><input id="birthday" placeholder="11/22" /></dd>
+                </dl>   <div>
+                    スクリプト
+                </div>
+                <div>
+                    <input id="output" style="width:90vw" readonly="readonly" />
+                </div>
+                <div>
+                    ※参考
+                </div>
+                <div>
+                    <textarea id="expanded" style="width:90vw" readonly="readonly" rows="6"></textarea>
+                </div>
+            </form>
+        </li>
+        <li><a href="https://primagi.jp/mypage/login/" target="_blank">マイキャラルームのログイン画面</a>を開く。</li>
+        <li>ログイン画面を開いた状態でアドレスバーに2.のスクリプトを貼り付けて実行する。</li>
+        <li></li>
+    </ol>
+    <script>
+        var cardId = document.getElementById('cardId');
+        var playerName = document.getElementById('playerName');
+        var birthday = document.getElementById('birthday');
+        function formatText(wrap) {
+            return "javascript:(function(){"
+                + (wrap ? "\n    " : "") + "$('input[name=\"val[ProfileCardID]\"').val('" + cardId.value + "');"
+                + (wrap ? "\n    " : "") + "$('input[name=\"val[PlayerName]\"').val('" + playerName.value + "');"
+                + (wrap ? "\n    " : "") + "$('input[name=\"val[Birthday]\"').val( '" + birthday.value + "');"
+                + (wrap ? "\n    " : "") + "$('form').submit();"
+                + (wrap ? "\n" : "") + "})()";
+        }
+
+        var output = document.getElementById('output');
+        var expanded = document.getElementById('expanded');
+        function updateText() {
+            output.value = formatText(false);
+            expanded.value = formatText(true);
+        }
+        updateText();
+        cardId.oninput = playerName.oninput = birthday.oninput = updateText;
+    </script>
+</body>
+</html>
